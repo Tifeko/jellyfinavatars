@@ -3,61 +3,19 @@
 <head>
     <title>Avatar Gallery</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin: 0; }
-        .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 20px; }
-        .gallery img { 
-            width: 150px; 
-            height: 150px; 
-            object-fit: cover; 
-            border-radius: 10px; 
-            cursor: pointer; 
-            transition: transform 0.2s; 
-        }
-        .gallery img:hover {
-            transform: scale(1.05);
-        }
-
-        /* Fullscreen preview modal */
-        .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 1000; 
-            left: 0; 
-            top: 0; 
-            width: 100%; 
-            height: 100%; 
-            background: rgba(0,0,0,0.9); 
-            justify-content: center; 
-            align-items: center;
-        }
-        .modal img {
-            max-width: 90%; 
-            max-height: 90%; 
-            border-radius: 15px;
-        }
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+        .gallery img { width: 150px; height: 150px; object-fit: cover; border-radius: 10px; cursor: pointer; }
     </style>
 </head>
 <body>
     <h1>Avatar Gallery</h1>
     <div class="gallery">
         {% for avatar in avatars %}
-            <img src="{{ url_for('static', filename='avatars/' ~ avatar) }}" alt="avatar" onclick="openModal(this.src)">
+            <a href="{{ url_for('download_file', filename=avatar) }}">
+                <img src="{{ url_for('static', filename='avatars/' ~ avatar) }}" alt="{{ avatar }}">
+            </a>
         {% endfor %}
     </div>
-
-    <!-- Modal -->
-    <div id="previewModal" class="modal" onclick="closeModal()">
-        <img id="previewImg" src="" alt="preview">
-    </div>
-
-    <script>
-        function openModal(src) {
-            document.getElementById("previewImg").src = src;
-            document.getElementById("previewModal").style.display = "flex";
-        }
-        function closeModal() {
-            document.getElementById("previewModal").style.display = "none";
-        }
-    </script>
 </body>
 </html>
