@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Avatar</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 0; }
+        h1 { margin: 20px 0; }
+        .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 20px; }
+        .gallery form { display: inline; }
+        .gallery img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .gallery img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px #666;
+        }
+        .selected {
+            border: 5px solid #4caf50;
+        }
+    </style>
+</head>
+<body>
+    <h1>Select Avatar for {{ user_name }}</h1>
+    <div class="gallery">
+        {% for avatar in avatars %}
+            <form action="{{ url_for('select_avatar', filename=avatar) }}" method="post">
+                <input type="hidden" name="user_id" value="{{ user_id }}">
+                <button type="submit" style="border:none; background:none; padding:0;">
+                    <img src="{{ url_for('static', filename='avatars/' ~ avatar) }}"
+                         alt="avatar"
+                         class="{% if selected == avatar %}selected{% endif %}">
+                </button>
+            </form>
+        {% endfor %}
+    </div>
+
+    {% if selected %}
+        <h2>Selected Avatar:</h2>
+        <img src="{{ url_for('static', filename='avatars/' ~ selected) }}"
+             alt="selected avatar" width="200" style="border-radius:50%;">
+    {% endif %}
+</body>
+</html>
