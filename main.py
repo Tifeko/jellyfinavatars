@@ -42,7 +42,6 @@ def index():
 
 @app.route("/avatars/<user_id>")
 def avatars(user_id):
-    """Display avatar gallery for a specific user"""
     # Ensure user_id exists
     if not user_id:
         return "Missing user_id", 400
