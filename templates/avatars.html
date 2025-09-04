@@ -3,7 +3,7 @@
 <head>
     <title>Select Avatar</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin: 0; }
+        body { font-family: Arial, sans-serif; text-align: center; }
         h1 { margin: 20px 0; }
         .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 20px; }
         .gallery form { display: inline; }
@@ -41,8 +41,7 @@
 
     {% if selected %}
         <h2>Selected Avatar:</h2>
-        <img src="{{ url_for('static', filename='avatars/' ~ selected) }}"
-             alt="selected avatar" width="200" style="border-radius:50%;">
+        <img src="{{ url_for('static', filename='avatars/' ~ selected) }}" alt="selected avatar" width="200" style="border-radius:50%;">
     {% endif %}
 </body>
 </html>
